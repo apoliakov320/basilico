@@ -235,3 +235,18 @@ if (floatingBtn && footer) {
         }
     });
 }
+
+/* =========================================
+   8. МАСКА ДЛЯ ПОЛЯ ВРЕМЕНИ (ЧЧ:ММ)
+   ========================================= */
+// 
+const timeInput = document.getElementById('modal-time');
+if (timeInput) {
+    timeInput.addEventListener('input', function(e) {
+        let val = this.value.replace(/\D/g, ''); 
+        if (val.length >= 3) {
+            val = val.slice(0, 2) + ':' + val.slice(2, 4);
+        }
+        this.value = val;
+    });
+}
