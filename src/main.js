@@ -235,13 +235,3 @@ if (floatingBtn && footer) {
         }
     });
 }
-
-/* =========================================
-   8. ДАТА В ПОЛИТИКЕ КОНФИДЕНЦИАЛЬНОСТИ
-   ========================================= */
-const dateEl = document.getElementById('current-date');
-if (dateEl) {
-    const date = new Date();
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    dateEl.textContent = date.toLocaleDateString('ru-RU', options);
-}

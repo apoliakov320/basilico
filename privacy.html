@@ -12,7 +12,7 @@
 
 <body class="antialiased bg-brand-dark text-brand-text font-sans selection:bg-brand-gold selection:text-brand-dark">
 
-    <!-- Тонкая шапка навигации (с кнопкой Назад) -->
+    <!-- Тонкая шапка с логотипом -->
     {{> header-inner }}
 
     <!-- Контент -->
@@ -34,7 +34,9 @@
                 <p>При бронировании стола через форму на сайте мы запрашиваем следующие данные:</p>
                 <ul class="list-disc list-inside space-y-2 ml-4">
                     <li>Имя пользователя;</li>
-                    <li>Номер телефона.</li>
+                    <li>Номер телефона;</li>
+                    <li>Дата и время бронирования;</li>
+                    <li>Количество гостей.</li>
                 </ul>
 
                 <h2 class="text-2xl font-serif text-white mt-12 mb-4">2. Как мы используем ваши данные</h2>
@@ -50,7 +52,8 @@
                 <h2 class="text-2xl font-serif text-white mt-12 mb-4">5. Изменения в Политике</h2>
                 <p>Мы оставляем за собой право вносить изменения в данную Политику. Актуальная версия всегда доступна на этой странице.</p>
 
-                <p class="mt-16 text-sm text-gray-500 italic">Последнее обновление: <span id="current-date"></span></p>
+                <!-- Жестко зафиксированная дата -->
+                <p class="mt-16 text-sm text-gray-500 italic">Последнее обновление: 12 ноября 2026 г.</p>
             </div>
 
         </div>
