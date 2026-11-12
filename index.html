@@ -378,20 +378,22 @@
                     <i class="fa-solid fa-wine-glass"></i>
                 </div>
                 <h3 class="text-2xl font-serif text-white tracking-wide" id="modal-title">Бронирование стола</h3>
-                <p class="text-sm text-gray-400 mt-2 font-light">Оставьте контакты, и мы свяжемся с вами.</p>
+                <p class="text-sm text-gray-400 mt-2 font-light">Заполните данные, и мы подтвердим вашу бронь.</p>
             </div>
 
-            <form id="modal-form" class="space-y-4" novalidate>
+            <form id="modal-form" class="space-y-5" novalidate>
                 
                 <!-- Имя -->
                 <div>
-                    <input type="text" id="modal-name" required placeholder="Ваше имя" class="w-full bg-transparent border-0 border-b border-white/20 px-0 py-3 text-sm text-white focus:outline-none focus:ring-0 focus:border-brand-gold font-light placeholder-gray-600 transition-colors duration-300">
-                    <p class="text-red-500 text-[10px] mt-1 hidden" id="name-error">Введите имя</p>
+                    <label class="text-[10px] text-gray-500 uppercase tracking-widest mb-1 block">Ваше имя</label>
+                    <input type="text" id="modal-name" required placeholder="Иван" class="w-full bg-transparent border-0 border-b border-white/20 px-0 py-2 text-sm text-white focus:outline-none focus:ring-0 focus:border-brand-gold font-light placeholder-gray-600 transition-colors duration-300">
+                    <p class="text-red-500 text-[10px] mt-1 hidden" id="name-error">Только буквы (мин. 2 символа)</p>
                 </div>
                 
                 <!-- Телефон -->
                 <div>
-                    <input type="tel" id="modal-phone" required placeholder="+7 (777) 000-00-00" class="w-full bg-transparent border-0 border-b border-white/20 px-0 py-3 text-sm text-white focus:outline-none focus:ring-0 focus:border-brand-gold font-light placeholder-gray-600 transition-colors duration-300">
+                    <label class="text-[10px] text-gray-500 uppercase tracking-widest mb-1 block">Телефон</label>
+                    <input type="tel" id="modal-phone" required placeholder="+7 (777) 000-00-00" class="w-full bg-transparent border-0 border-b border-white/20 px-0 py-2 text-sm text-white focus:outline-none focus:ring-0 focus:border-brand-gold font-light placeholder-gray-600 transition-colors duration-300">
                     <p class="text-red-500 text-[10px] mt-1 hidden" id="phone-error">Введите корректный номер</p>
                 </div>
 
@@ -400,18 +402,19 @@
                     <div>
                         <label class="text-[10px] text-gray-500 uppercase tracking-widest mb-1 block">Дата</label>
                         <input type="date" id="modal-date" required lang="ru" class="w-full bg-transparent border-0 border-b border-white/20 px-0 py-2 text-sm text-white focus:outline-none focus:ring-0 focus:border-brand-gold font-light [color-scheme:dark] cursor-pointer">
+                        <p class="text-red-500 text-[10px] mt-1 hidden" id="date-error">Выберите дату</p>
                     </div>
                     <div>
                         <label class="text-[10px] text-gray-500 uppercase tracking-widest mb-1 block">Время</label>
-                        <!-- Текстовое поле для 24-часового формата -->
                         <input type="text" id="modal-time" required maxlength="5" placeholder="19:00" inputmode="numeric" class="w-full bg-transparent border-0 border-b border-white/20 px-0 py-2 text-sm text-white focus:outline-none focus:ring-0 focus:border-brand-gold font-light placeholder-gray-600 transition-colors duration-300">
+                        <p class="text-red-500 text-[10px] mt-1 hidden" id="time-error">Введите время</p>
                     </div>
                 </div>
 
                 <!-- Гости -->
                 <div>
                     <label class="text-[10px] text-gray-500 uppercase tracking-widest mb-1 block">Гостей</label>
-                    <select id="modal-guests" class="w-full bg-transparent border-0 border-b border-white/20 px-0 py-3 text-sm text-white focus:outline-none focus:ring-0 focus:border-brand-gold font-light cursor-pointer appearance-none">
+                    <select id="modal-guests" class="w-full bg-transparent border-0 border-b border-white/20 px-0 py-2 text-sm text-white focus:outline-none focus:ring-0 focus:border-brand-gold font-light cursor-pointer appearance-none">
                         <option value="1" class="bg-brand-card">1 человек</option>
                         <option value="2" class="bg-brand-card" selected>2 человека</option>
                         <option value="3" class="bg-brand-card">3 человека</option>
@@ -421,10 +424,10 @@
                 </div>
 
                 <!-- Чекбокс -->
-                <div class="flex items-center gap-3 pt-2">
-                    <input type="checkbox" id="modal-agree" required class="w-4 h-4 accent-brand-gold bg-transparent border-white/20">
+                <div class="flex items-start gap-3 pt-2">
+                    <input type="checkbox" id="modal-agree" required class="w-4 h-4 mt-0.5 shrink-0 accent-brand-gold bg-transparent border-white/20">
                     <div>
-                        <label for="modal-agree" class="text-[11px] text-gray-400 cursor-pointer">Я согласен на обработку данных</label>
+                        <label for="modal-agree" class="text-[11px] text-gray-400 cursor-pointer leading-tight block">Я согласен на обработку данных</label>
                         <p class="text-red-500 text-[10px] mt-1 hidden" id="agree-error">Необходимо согласие</p>
                     </div>
                 </div>
@@ -439,7 +442,7 @@
                     <i class="fa-solid fa-check"></i>
                 </div>
                 <h4 class="text-2xl font-serif text-white mb-2">Заявка принята!</h4>
-                <p class="text-sm text-gray-400 font-light px-4">Наш менеджер свяжется с вами.</p>
+                <p class="text-sm text-gray-400 font-light px-4">Наш менеджер свяжется с вами для подтверждения.</p>
             </div>
         </div>
     </div>

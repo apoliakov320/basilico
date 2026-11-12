@@ -14,7 +14,7 @@ const mobileMenu = document.getElementById('mobile-menu');
    2. МОДАЛЬНОЕ ОКНО
    ========================================= */
 window.openModal = function() {
-    // Устанавливаем минимальную дату (сегодня), чтобы нельзя было выбрать прошлое
+    // Устанавливаем минимальную дату (сегодня)
     const dateInput = document.getElementById('modal-date');
     if (dateInput) {
         const today = new Date().toISOString().split('T')[0];
@@ -26,28 +26,22 @@ window.openModal = function() {
         modalForm.reset();
         modalForm.classList.remove('hidden');
         
-        // Очищаем старые текстовые ошибки
-        ['name-error', 'phone-error', 'agree-error'].forEach(id => document.getElementById(id)?.classList.add('hidden'));
+        // Очищаем старые ошибки
+        ['name-error', 'phone-error', 'agree-error', 'date-error', 'time-error'].forEach(id => document.getElementById(id)?.classList.add('hidden'));
         
-        // Очищаем красную нижнюю линию с полей ввода
-        ['modal-name', 'modal-phone'].forEach(id => {
+        // Очищаем красные линии с полей
+        ['modal-name', 'modal-phone', 'modal-date', 'modal-time'].forEach(id => {
             const el = document.getElementById(id);
             if (el) el.classList.remove('!border-red-500');
         });
         
-        // Удаляем глобальную плашку ошибки, если она была
         const errBox = document.getElementById('form-global-error');
         if (errBox) errBox.remove();
-
-        // Возвращаем стандартный текст ошибки имени
-        const nameError = document.getElementById('name-error');
-        if (nameError) nameError.textContent = 'Введите имя';
     }
     if (modalSuccess) modalSuccess.classList.add('hidden');
     if (modal) modal.classList.remove('hidden');
     document.body.classList.add('modal-open');
     
-    // Автофокус на поле имени
     setTimeout(() => document.getElementById('modal-name')?.focus(), 50);
 };
 
@@ -62,7 +56,21 @@ if (modal) {
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') window.closeModal(); });
 
 /* =========================================
-   3. ОТПРАВКА ФОРМЫ (ИМЯ, ТЕЛЕФОН, ДАТА, ВРЕМЯ, ГОСТИ)
+   3. МАСКА ДЛЯ ВРЕМЕНИ (ЧЧ:ММ)
+   ========================================= */
+const timeInput = document.getElementById('modal-time');
+if (timeInput) {
+    timeInput.addEventListener('input', function() {
+        let val = this.value.replace(/\D/g, ''); 
+        if (val.length >= 3) {
+            val = val.slice(0, 2) + ':' + val.slice(2, 4);
+        }
+        this.value = val;
+    });
+}
+
+/* =========================================
+   4. ОТПРАВКА ФОРМЫ (С ПОЛНОЙ ПРОВЕРКОЙ)
    ========================================= */
 async function handleFormSubmit(e) {
     e.preventDefault();
@@ -76,15 +84,15 @@ async function handleFormSubmit(e) {
     
     const nameError = document.getElementById('name-error');
     const phoneError = document.getElementById('phone-error');
+    const dateError = document.getElementById('date-error');
+    const timeError = document.getElementById('time-error');
     const agreeError = document.getElementById('agree-error');
 
     if (!nameInput || !phoneInput) return;
 
     // Сбрасываем старые ошибки
-    [nameInput, phoneInput].forEach(i => i.classList.remove('!border-red-500'));
-    if (nameError) nameError.classList.add('hidden');
-    if (phoneError) phoneError.classList.add('hidden');
-    if (agreeError) agreeError.classList.add('hidden');
+    [nameInput, phoneInput, dateInput, timeInput].forEach(i => i.classList.remove('!border-red-500'));
+    ['name-error', 'phone-error', 'date-error', 'time-error', 'agree-error'].forEach(id => document.getElementById(id)?.classList.add('hidden'));
 
     let valid = true;
 
@@ -93,10 +101,7 @@ async function handleFormSubmit(e) {
     const nameRegex = /^[a-zA-Zа-яА-ЯёЁ\s\-]+$/; 
     if (nameValue.length < 2 || !nameRegex.test(nameValue)) {
         nameInput.classList.add('!border-red-500');
-        if (nameError) {
-            nameError.textContent = 'Только буквы (мин. 2 символа)';
-            nameError.classList.remove('hidden');
-        }
+        if (nameError) nameError.classList.remove('hidden');
         valid = false;
     }
 
@@ -108,7 +113,21 @@ async function handleFormSubmit(e) {
         valid = false;
     }
     
-    // 3. Проверка Чекбокса
+    // 3. Проверка Даты
+    if (!dateInput.value) {
+        dateInput.classList.add('!border-red-500');
+        if (dateError) dateError.classList.remove('hidden');
+        valid = false;
+    }
+
+    // 4. Проверка Времени
+    if (!timeInput.value || timeInput.value.length < 5) {
+        timeInput.classList.add('!border-red-500');
+        if (timeError) timeError.classList.remove('hidden');
+        valid = false;
+    }
+
+    // 5. Проверка Чекбокса
     if (agreeInput && !agreeInput.checked) {
         if (agreeError) agreeError.classList.remove('hidden');
         valid = false;
@@ -116,7 +135,7 @@ async function handleFormSubmit(e) {
 
     if (!valid) return; 
 
-    // --- ОТПРАВКА НА CLOUDFLARE ---
+    // --- ОТПРАВКА ---
     const submitBtn = e.target.querySelector('button[type="submit"]');
     const originalText = submitBtn.innerHTML;
     submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Отправка...';
@@ -132,9 +151,9 @@ async function handleFormSubmit(e) {
             body: JSON.stringify({ 
                 name: nameValue, 
                 phone: phoneInput.value,
-                date: dateInput ? dateInput.value : '',
-                time: timeInput ? timeInput.value : '',
-                guests: guestsInput ? guestsInput.value : '2'
+                date: dateInput.value,
+                time: timeInput.value,
+                guests: guestsInput.value
             })
         });
 
@@ -151,7 +170,6 @@ async function handleFormSubmit(e) {
     } catch (error) {
         console.error('Ошибка отправки:', error);
         
-        // Выводим красную плашку под кнопкой
         let errorBox = document.getElementById('form-global-error');
         if (!errorBox) {
             errorBox = document.createElement('p');
@@ -159,7 +177,7 @@ async function handleFormSubmit(e) {
             errorBox.className = 'text-red-500 text-xs text-center mt-2 font-semibold';
             submitBtn.parentNode.appendChild(errorBox);
         }
-        errorBox.textContent = 'Не удалось отправить. Проверьте интернет или попробуйте позже.';
+        errorBox.textContent = 'Не удалось отправить. Проверьте интернет.';
         
     } finally {
         submitBtn.innerHTML = originalText;
@@ -170,7 +188,7 @@ async function handleFormSubmit(e) {
 document.getElementById('modal-form')?.addEventListener('submit', handleFormSubmit);
 
 /* =========================================
-   4. МОБИЛЬНОЕ МЕНЮ
+   5. МОБИЛЬНОЕ МЕНЮ
    ========================================= */
 window.toggleMenu = function() {
     if (!mobileMenu) return;
@@ -192,7 +210,7 @@ if (mobileMenuBtn) {
 }
 
 /* =========================================
-   5. ВКЛАДКИ МЕНЮ
+   6. ВКЛАДКИ МЕНЮ
    ========================================= */
 window.openMenuTab = function(tabId, btnElement) {
     document.querySelectorAll('.menu-tab-btn').forEach(btn => btn.classList.remove('active'));
@@ -202,7 +220,7 @@ window.openMenuTab = function(tabId, btnElement) {
 };
 
 /* =========================================
-   6. АНИМАЦИИ ПРИ СКРОЛЛЕ
+   7. АНИМАЦИИ ПРИ СКРОЛЛЕ
    ========================================= */
 document.addEventListener("DOMContentLoaded", function() {
     const reveals = document.querySelectorAll('.reveal');
@@ -218,7 +236,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 /* =========================================
-   7. СКРЫТИЕ ПЛАВАЮЩЕЙ КНОПКИ В ФУТЕРЕ
+   8. СКРЫТИЕ ПЛАВАЮЩЕЙ КНОПКИ В ФУТЕРЕ
    ========================================= */
 const floatingBtn = document.getElementById('floating-btn');
 const footer = document.getElementById('contacts');
@@ -233,20 +251,5 @@ if (floatingBtn && footer) {
             floatingBtn.classList.remove('translate-y-24', 'opacity-0');
             floatingBtn.classList.add('translate-y-0', 'opacity-100');
         }
-    });
-}
-
-/* =========================================
-   8. МАСКА ДЛЯ ПОЛЯ ВРЕМЕНИ (ЧЧ:ММ)
-   ========================================= */
-// 
-const timeInput = document.getElementById('modal-time');
-if (timeInput) {
-    timeInput.addEventListener('input', function(e) {
-        let val = this.value.replace(/\D/g, ''); 
-        if (val.length >= 3) {
-            val = val.slice(0, 2) + ':' + val.slice(2, 4);
-        }
-        this.value = val;
     });
 }
