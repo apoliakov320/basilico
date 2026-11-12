@@ -1,0 +1,73 @@
+<!-- НАВИГАЦИЯ -->
+<header class="fixed top-0 left-0 w-full z-50 bg-brand-dark/80 backdrop-blur-md border-b border-white/5 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 lg:px-8 h-24 flex items-center justify-between relative">
+        
+        <!-- Левая часть: Логотип -->
+        <div class="flex items-center gap-6">
+            <a href="index.html" class="flex items-center gap-3 group shrink-0">
+                <span class="text-2xl sm:text-3xl font-serif font-bold text-white tracking-widest uppercase hover:text-brand-gold transition-colors">Basilico</span>
+            </a>
+            <span class="hidden xl:block text-gray-500 tracking-[0.4em] uppercase text-[10px] font-bold mt-1">
+                Fine Dining
+            </span>
+        </div>
+
+        <!-- Центр: Меню для ПК -->
+        <nav class="hidden lg:flex items-center gap-8 font-medium text-xs tracking-widest uppercase text-gray-400 absolute left-1/2 -translate-x-1/2">
+            <a href="index.html#about" class="hover:text-brand-gold transition-colors whitespace-nowrap">О нас</a>
+            <a href="index.html#menu" class="hover:text-brand-gold transition-colors whitespace-nowrap">Меню</a>
+            <a href="index.html#contacts" class="hover:text-brand-gold transition-colors whitespace-nowrap">Контакты</a>
+        </nav>
+
+        <!-- Правая часть: Карта, Кнопка, Бургер -->
+        <div class="flex items-center gap-3 sm:gap-4 shrink-0">
+            
+            <!-- Ссылка на карту -->
+            <a href="https://2gis.kz/almaty/search/пр. Серкебаева 146/8" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-1.5 text-gray-400 hover:text-brand-gold transition-colors text-[10px] sm:text-xs tracking-widest uppercase" aria-label="На карте">
+                <i class="fa-solid fa-location-dot text-brand-gold text-sm sm:text-base group-hover:scale-110 transition-transform"></i>
+                <span>НА КАРТЕ</span>
+            </a>
+
+            <div class="hidden lg:block w-px h-5 bg-white/20 mx-2"></div>
+            
+            <!-- Кнопка бронирования (ПК) - добавлен класс js-booking-btn -->
+            <button onclick="openModal()" class="js-booking-btn hidden lg:block bg-brand-gold text-brand-dark hover:bg-[#FFEA70] hover:shadow-[0_0_20px_rgba(255,215,0,0.4)] transition-all duration-300 px-6 py-3 text-xs tracking-widest uppercase font-bold whitespace-nowrap rounded-sm">
+                Забронировать
+            </button>
+
+            <!-- Бургер -->
+            <button id="mobile-menu-btn" class="lg:hidden text-white text-2xl p-2 z-[60] relative" aria-label="Меню">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- ВЫЕЗЖАЮЩЕЕ МОБИЛЬНОЕ МЕНЮ -->
+<div id="mobile-menu" class="fixed inset-0 bg-brand-dark z-[55] flex flex-col items-center justify-center gap-6 transform translate-x-full transition-transform duration-500 ease-in-out lg:hidden">
+    
+    <!-- Кнопка закрытия меню -->
+    <div class="absolute top-6 right-6 w-full flex justify-end px-6">
+        <button onclick="toggleMenu()" class="text-gray-500 hover:text-brand-gold text-2xl transition-colors" aria-label="Закрыть">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    </div>
+
+    <!-- Логотип в меню -->
+    <a href="index.html" class="flex items-center gap-3 group shrink-0 mb-8">
+        <span class="text-2xl sm:text-3xl font-serif font-bold text-white tracking-widest uppercase hover:text-brand-gold transition-colors">Basilico</span>
+    </a>
+    
+    <!-- Ссылки -->
+    <a href="index.html#about" onclick="toggleMenu()" class="text-base font-serif text-white hover:text-brand-gold transition-colors uppercase tracking-[0.2em]">О нас</a>
+    <a href="index.html#menu" onclick="toggleMenu()" class="text-base font-serif text-white hover:text-brand-gold transition-colors uppercase tracking-[0.2em]">Меню</a>
+    <a href="index.html#contacts" onclick="toggleMenu()" class="text-base font-serif text-white hover:text-brand-gold transition-colors uppercase tracking-[0.2em]">Контакты</a>
+    
+    <!-- Декоративная линия -->
+    <div class="w-12 h-px bg-white/10 my-4"></div>
+    
+    <!-- Кнопка бронирования (Мобилка) - добавлен класс js-booking-btn -->
+    <button onclick="toggleMenu(); openModal()" class="js-booking-btn mt-6 bg-brand-gold text-brand-dark font-bold py-3 px-10 rounded-sm uppercase tracking-widest text-[11px] hover:bg-[#FFEA70] transition-colors">
+        Забронировать стол
+    </button>
+</div>

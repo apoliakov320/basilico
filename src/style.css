@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+/* =========================================
+   1. ТЕМА И ЦВЕТА (Для Tailwind v4)
+   ========================================= */
+@theme {
+  --color-brand-dark: #0A0C10;      
+  --color-brand-card: #1A1A1A;      
+  --color-brand-gold: #FFD700;      
+  --color-brand-goldHover: #FFEA70; 
+  --color-brand-text: #E5E5E5;      
+  --font-sans: "Montserrat", sans-serif;
+  --font-serif: "Playfair Display", serif;
+}
+
+/* =========================================
+   2. БАЗОВЫЕ НАСТРОЙКИ И СКРОЛЛ
+   ========================================= */
+html { scroll-padding-top: 100px; }
+body { -webkit-tap-highlight-color: transparent; }
+
+/* JS добавляет этот класс body, чтобы страница не скроллилась при открытой модалке/меню */
+body.modal-open, body.menu-open { overflow: hidden; }
+
+::-webkit-scrollbar { width: 0px; background: transparent; }
+html { scrollbar-width: none; }
+body { -ms-overflow-style: none; }
+
+/* =========================================
+   3. АНИМАЦИИ И ХОВЕР-ЭФФЕКТЫ
+   ========================================= */
+a, button, .group { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+
+/* =========================================
+   4. АНИМАЦИЯ ПОЯВЛЕНИЯ ПРИ СКРОЛЛЕ (JS добавляет .active)
+   ========================================= */
+.reveal { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.5, 0, 0, 1); }
+.reveal.active { opacity: 1; transform: translateY(0); }
+.delay-200 { transition-delay: 200ms; }
+
+/* =========================================
+   5. ВКЛАДКИ МЕНЮ (JS добавляет .active)
+   ========================================= */
+.menu-tab-content { display: none; animation: fadeInMenu 0.6s ease forwards; }
+.menu-tab-content.active { display: block; }
+@keyframes fadeInMenu {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.menu-tab-btn { color: rgba(255, 255, 255, 0.4); border-bottom: 2px solid transparent; transition: all 0.3s ease; cursor: pointer; }
+.menu-tab-btn:hover { color: #FFD700; }
+.menu-tab-btn.active { color: #FFD700; border-bottom-color: #FFD700; text-shadow: 0 0 10px rgba(255, 215, 0, 0.4); }
+
+/* =========================================
+   6. СВЕЧЕНИЕ И ФОРМЫ
+   ========================================= */
+.text-glow-gold { text-shadow: 0 0 15px rgba(255, 215, 0, 0.4), 0 0 30px rgba(255, 215, 0, 0.2); }
+[class*="text-brand-gold"] { text-shadow: 0 0 10px rgba(255, 215, 0, 0.2); }
+
+input:focus { outline: none !important; box-shadow: none !important; }
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px #1A1A1A inset !important;
+    -webkit-text-fill-color: white !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
