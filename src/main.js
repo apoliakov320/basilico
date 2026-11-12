@@ -92,6 +92,7 @@ async function handleFormSubmit(e) {
 
     let valid = true;
 
+    // 1. Проверка Имени
     const nameValue = nameInput.value.trim();
     const nameRegex = /^[a-zA-Zа-яА-ЯёЁ\s\-]+$/; 
     if (nameValue.length < 2 || !nameRegex.test(nameValue)) {
@@ -100,6 +101,7 @@ async function handleFormSubmit(e) {
         valid = false;
     }
 
+    // 2. Проверка Телефона
     const digits = phoneInput.value.replace(/\D/g, '');
     if (digits.length < 10 || digits.length > 11) {
         phoneInput.classList.add('!border-red-500');
@@ -107,6 +109,7 @@ async function handleFormSubmit(e) {
         valid = false;
     }
     
+    // 3. Проверка Даты
     let dateValid = true;
     if (!dateInput.value) {
         dateValid = false;
@@ -131,12 +134,27 @@ async function handleFormSubmit(e) {
         valid = false;
     }
 
-    if (!timeInput.value || timeInput.value.length < 5 || !timeInput.value.includes(':')) {
+    // 4. Проверка Времени (строго от 00:00 до 23:59)
+    let timeValid = true;
+    if (!timeInput.value || timeInput.value.length < 5) {
+        timeValid = false;
+    } else {
+        const [hours, minutes] = timeInput.value.split(':').map(Number);
+        if (isNaN(hours) || hours < 0 || hours > 23 || isNaN(minutes) || minutes < 0 || minutes > 59) {
+            timeValid = false;
+        }
+    }
+
+    if (!timeValid) {
         timeInput.classList.add('!border-red-500');
-        if (timeError) timeError.classList.remove('hidden');
+        if (timeError) {
+            timeError.textContent = 'Введите время (00:00 - 23:59)';
+            timeError.classList.remove('hidden');
+        }
         valid = false;
     }
 
+    // 5. Проверка Чекбокса
     if (agreeInput && !agreeInput.checked) {
         if (agreeError) agreeError.classList.remove('hidden');
         valid = false;
@@ -144,6 +162,7 @@ async function handleFormSubmit(e) {
 
     if (!valid) return; 
 
+    // --- ОТПРАВКА ---
     const submitBtn = e.target.querySelector('button[type="submit"]');
     const originalText = submitBtn.innerHTML;
     submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Отправка...';
@@ -167,6 +186,7 @@ async function handleFormSubmit(e) {
 
         if (!response.ok) throw new Error('Ошибка сервера');
 
+        // Успех
         if (modalHeader) modalHeader.classList.add('hidden');
         if (modalForm) modalForm.classList.add('hidden');
         if (modalSuccess) modalSuccess.classList.remove('hidden');
