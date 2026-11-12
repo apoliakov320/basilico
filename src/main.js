@@ -14,7 +14,6 @@ const mobileMenu = document.getElementById('mobile-menu');
    2. МОДАЛЬНОЕ ОКНО
    ========================================= */
 window.openModal = function() {
-    // Устанавливаем минимальную дату (сегодня)
     const dateInput = document.getElementById('modal-date');
     if (dateInput) {
         const today = new Date().toISOString().split('T')[0];
@@ -26,10 +25,8 @@ window.openModal = function() {
         modalForm.reset();
         modalForm.classList.remove('hidden');
         
-        // Очищаем старые ошибки
         ['name-error', 'phone-error', 'agree-error', 'date-error', 'time-error'].forEach(id => document.getElementById(id)?.classList.add('hidden'));
         
-        // Очищаем красные линии с полей
         ['modal-name', 'modal-phone', 'modal-date', 'modal-time'].forEach(id => {
             const el = document.getElementById(id);
             if (el) el.classList.remove('!border-red-500');
@@ -90,13 +87,11 @@ async function handleFormSubmit(e) {
 
     if (!nameInput || !phoneInput) return;
 
-    // Сбрасываем старые ошибки
     [nameInput, phoneInput, dateInput, timeInput].forEach(i => i.classList.remove('!border-red-500'));
     ['name-error', 'phone-error', 'date-error', 'time-error', 'agree-error'].forEach(id => document.getElementById(id)?.classList.add('hidden'));
 
     let valid = true;
 
-    // 1. Проверка Имени
     const nameValue = nameInput.value.trim();
     const nameRegex = /^[a-zA-Zа-яА-ЯёЁ\s\-]+$/; 
     if (nameValue.length < 2 || !nameRegex.test(nameValue)) {
@@ -105,7 +100,6 @@ async function handleFormSubmit(e) {
         valid = false;
     }
 
-    // 2. Проверка Телефона
     const digits = phoneInput.value.replace(/\D/g, '');
     if (digits.length < 10 || digits.length > 11) {
         phoneInput.classList.add('!border-red-500');
@@ -113,15 +107,13 @@ async function handleFormSubmit(e) {
         valid = false;
     }
     
-    // 3. Проверка Даты (с защитой от 275760 года)
     let dateValid = true;
     if (!dateInput.value) {
         dateValid = false;
     } else {
         const selectedDate = new Date(dateInput.value);
         const today = new Date();
-        today.setHours(0, 0, 0, 0); // Сбрасываем время для корректного сравнения
-
+        today.setHours(0, 0, 0, 0);
         const nextYear = new Date();
         nextYear.setFullYear(today.getFullYear() + 1);
 
@@ -139,14 +131,12 @@ async function handleFormSubmit(e) {
         valid = false;
     }
 
-    // 4. Проверка Времени
     if (!timeInput.value || timeInput.value.length < 5 || !timeInput.value.includes(':')) {
         timeInput.classList.add('!border-red-500');
         if (timeError) timeError.classList.remove('hidden');
         valid = false;
     }
 
-    // 5. Проверка Чекбокса
     if (agreeInput && !agreeInput.checked) {
         if (agreeError) agreeError.classList.remove('hidden');
         valid = false;
@@ -154,7 +144,6 @@ async function handleFormSubmit(e) {
 
     if (!valid) return; 
 
-    // --- ОТПРАВКА ---
     const submitBtn = e.target.querySelector('button[type="submit"]');
     const originalText = submitBtn.innerHTML;
     submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Отправка...';
@@ -178,7 +167,6 @@ async function handleFormSubmit(e) {
 
         if (!response.ok) throw new Error('Ошибка сервера');
 
-        // Успех
         if (modalHeader) modalHeader.classList.add('hidden');
         if (modalForm) modalForm.classList.add('hidden');
         if (modalSuccess) modalSuccess.classList.remove('hidden');
