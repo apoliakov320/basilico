@@ -113,15 +113,34 @@ async function handleFormSubmit(e) {
         valid = false;
     }
     
-    // 3. Проверка Даты
+    // 3. Проверка Даты (с защитой от 275760 года)
+    let dateValid = true;
     if (!dateInput.value) {
+        dateValid = false;
+    } else {
+        const selectedDate = new Date(dateInput.value);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Сбрасываем время для корректного сравнения
+
+        const nextYear = new Date();
+        nextYear.setFullYear(today.getFullYear() + 1);
+
+        if (selectedDate < today || selectedDate > nextYear) {
+            dateValid = false;
+        }
+    }
+
+    if (!dateValid) {
         dateInput.classList.add('!border-red-500');
-        if (dateError) dateError.classList.remove('hidden');
+        if (dateError) {
+            dateError.textContent = 'Выберите корректную дату';
+            dateError.classList.remove('hidden');
+        }
         valid = false;
     }
 
     // 4. Проверка Времени
-    if (!timeInput.value || timeInput.value.length < 5) {
+    if (!timeInput.value || timeInput.value.length < 5 || !timeInput.value.includes(':')) {
         timeInput.classList.add('!border-red-500');
         if (timeError) timeError.classList.remove('hidden');
         valid = false;
