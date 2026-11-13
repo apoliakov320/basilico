@@ -384,33 +384,33 @@
             <form id="modal-form" class="space-y-5" novalidate>
                 
                 <div>
-                    <label class="text-[10px] text-gray-500 uppercase tracking-widest mb-1 block">Ваше имя</label>
-                    <input type="text" id="modal-name" required placeholder="Иван" class="w-full bg-transparent border-0 border-b border-white/20 px-0 py-2 text-sm text-white focus:outline-none focus:ring-0 focus:border-brand-gold font-light placeholder-gray-600 transition-colors duration-300">
+                    <label for="modal-name" class="text-[10px] text-gray-500 uppercase tracking-widest mb-1 block">Ваше имя</label>
+                    <input type="text" id="modal-name" name="name" required autocomplete="name" placeholder="Иван" class="w-full bg-transparent border-0 border-b border-white/20 px-0 py-2 text-sm text-white focus:outline-none focus:ring-0 focus:border-brand-gold font-light placeholder-gray-600 transition-colors duration-300">
                     <p class="text-red-500 text-[10px] mt-1 hidden" id="name-error">Только буквы (мин. 2 символа)</p>
                 </div>
                 
                 <div>
-                    <label class="text-[10px] text-gray-500 uppercase tracking-widest mb-1 block">Телефон</label>
-                    <input type="tel" id="modal-phone" required placeholder="+7 (777) 000-00-00" class="w-full bg-transparent border-0 border-b border-white/20 px-0 py-2 text-sm text-white focus:outline-none focus:ring-0 focus:border-brand-gold font-light placeholder-gray-600 transition-colors duration-300">
+                    <label for="modal-phone" class="text-[10px] text-gray-500 uppercase tracking-widest mb-1 block">Телефон</label>
+                    <input type="tel" id="modal-phone" name="phone" required autocomplete="tel" placeholder="+7 (777) 000-00-00" class="w-full bg-transparent border-0 border-b border-white/20 px-0 py-2 text-sm text-white focus:outline-none focus:ring-0 focus:border-brand-gold font-light placeholder-gray-600 transition-colors duration-300">
                     <p class="text-red-500 text-[10px] mt-1 hidden" id="phone-error">Введите корректный номер</p>
                 </div>
 
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <label class="text-[10px] text-gray-500 uppercase tracking-widest mb-1 block">Дата</label>
-                        <input type="date" id="modal-date" required lang="ru" class="w-full bg-transparent border-0 border-b border-white/20 px-0 py-2 text-sm text-white focus:outline-none focus:ring-0 focus:border-brand-gold font-light [color-scheme:dark] cursor-pointer">
+                        <label for="modal-date" class="text-[10px] text-gray-500 uppercase tracking-widest mb-1 block">Дата</label>
+                        <input type="date" id="modal-date" name="date" required lang="ru" class="w-full bg-transparent border-0 border-b border-white/20 px-0 py-2 text-sm text-white focus:outline-none focus:ring-0 focus:border-brand-gold font-light [color-scheme:dark] cursor-pointer">
                         <p class="text-red-500 text-[10px] mt-1 hidden" id="date-error">Выберите дату</p>
                     </div>
                     <div>
-                        <label class="text-[10px] text-gray-500 uppercase tracking-widest mb-1 block">Время</label>
-                        <input type="text" id="modal-time" required maxlength="5" placeholder="19:00" inputmode="numeric" class="w-full bg-transparent border-0 border-b border-white/20 px-0 py-2 text-sm text-white focus:outline-none focus:ring-0 focus:border-brand-gold font-light placeholder-gray-600 transition-colors duration-300">
+                        <label for="modal-time" class="text-[10px] text-gray-500 uppercase tracking-widest mb-1 block">Время</label>
+                        <input type="text" id="modal-time" name="time" required maxlength="5" placeholder="19:00" inputmode="numeric" class="w-full bg-transparent border-0 border-b border-white/20 px-0 py-2 text-sm text-white focus:outline-none focus:ring-0 focus:border-brand-gold font-light placeholder-gray-600 transition-colors duration-300">
                         <p class="text-red-500 text-[10px] mt-1 hidden" id="time-error">Введите время</p>
                     </div>
                 </div>
 
                 <div>
-                    <label class="text-[10px] text-gray-500 uppercase tracking-widest mb-1 block">Гостей</label>
-                    <select id="modal-guests" class="w-full bg-transparent border-0 border-b border-white/20 px-0 py-2 text-sm text-white focus:outline-none focus:ring-0 focus:border-brand-gold font-light cursor-pointer appearance-none">
+                    <label for="modal-guests" class="text-[10px] text-gray-500 uppercase tracking-widest mb-1 block">Гостей</label>
+                    <select id="modal-guests" name="guests" class="w-full bg-transparent border-0 border-b border-white/20 px-0 py-2 text-sm text-white focus:outline-none focus:ring-0 focus:border-brand-gold font-light cursor-pointer appearance-none">
                         <option value="1" class="bg-brand-card">1 человек</option>
                         <option value="2" class="bg-brand-card" selected>2 человека</option>
                         <option value="3" class="bg-brand-card">3 человека</option>
@@ -420,9 +420,11 @@
                 </div>
 
                 <div class="flex items-start gap-3 pt-2">
-                    <input type="checkbox" id="modal-agree" required class="w-4 h-4 mt-0.5 shrink-0 accent-brand-gold bg-transparent border-white/20">
+                    <input type="checkbox" id="modal-agree" name="agree" required class="w-4 h-4 mt-0.5 shrink-0 accent-brand-gold bg-transparent border-white/20" aria-describedby="agree-desc agree-error">
                     <div>
-                        <label for="modal-agree" class="text-[11px] text-gray-400 cursor-pointer leading-tight block">Я согласен на обработку данных</label>
+                        <label for="modal-agree" id="agree-desc" class="text-[11px] text-gray-400 cursor-pointer leading-tight block">
+                            Я согласен с <a href="/privacy.html" target="_blank" rel="noopener noreferrer" class="text-brand-gold hover:text-brand-goldHover underline underline-offset-2 transition-colors">политикой конфиденциальности</a> и обработкой персональных данных
+                        </label>
                         <p class="text-red-500 text-[10px] mt-1 hidden" id="agree-error">Необходимо согласие</p>
                     </div>
                 </div>
