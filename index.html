@@ -419,14 +419,19 @@
                     </select>
                 </div>
                 
-                <button type="submit" class="w-full bg-brand-gold hover:bg-brand-goldHover text-brand-dark font-semibold tracking-widest uppercase py-4 text-xs transition-all duration-300 mt-6">
-                    Отправить заявку
-                </button>
+                <!-- Кнопка и красивая приписка -->
+                <div class="pt-2">
+                    <button type="submit" class="w-full bg-brand-gold hover:bg-brand-goldHover text-brand-dark font-semibold tracking-widest uppercase py-4 text-xs transition-all duration-300 mb-4 shadow-[0_4px_14px_rgba(255,215,0,0.15)] hover:shadow-[0_6px_20px_rgba(255,215,0,0.3)]">
+                        Отправить заявку
+                    </button>
 
-                <!-- ТЕКСТ СОГЛАСИЯ ВМЕСТО ЧЕКБОКСА -->
-                <p class="text-[11px] text-gray-500 text-center leading-relaxed mt-4 font-light px-2">
-                    Нажимая кнопку «Отправить заявку», вы соглашаетесь с <a href="/privacy.html" target="_blank" rel="noopener noreferrer" class="text-brand-gold hover:text-brand-goldHover transition-colors underline-offset-2">политикой конфиденциальности</a> и обработкой персональных данных.
-                </p>
+                    <p class="text-[11px] text-gray-500 text-center leading-relaxed font-light px-2">
+                        Нажимая кнопку, вы соглашаетесь с <br class="hidden sm:block" />
+                        <a href="/privacy.html" target="_blank" rel="noopener noreferrer" class="text-brand-gold hover:text-brand-goldHover transition-colors underline decoration-brand-gold/30 hover:decoration-brand-gold underline-offset-4">
+                            политикой конфиденциальности
+                        </a>
+                    </p>
+                </div>
 
             </form>
 
