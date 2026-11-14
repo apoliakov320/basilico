@@ -365,7 +365,7 @@
 
     {{> footer }}
 
-        <!-- МОДАЛКА -->
+    <!-- МОДАЛКА -->
     <div id="booking-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center hidden p-4">
         <div class="bg-brand-card border border-white/10 rounded-sm max-w-md w-full p-8 shadow-2xl relative">
             
@@ -419,14 +419,18 @@
                     </select>
                 </div>
 
-                <div class="flex items-start gap-3 pt-2">
-                    <input type="checkbox" id="modal-agree" name="agree" required class="w-4 h-4 mt-0.5 shrink-0 accent-brand-gold bg-transparent border-white/20 cursor-pointer" aria-describedby="agree-desc agree-error">
-                    <div class="flex-1">
-                        <label for="modal-agree" id="agree-desc" class="text-[11px] text-gray-400 cursor-pointer leading-tight block">
-                            Я согласен с <a href="/privacy.html" target="_blank" rel="noopener noreferrer" class="text-brand-gold hover:text-brand-goldHover underline underline-offset-2 transition-colors">политикой конфиденциальности</a> и обработкой персональных данных
-                        </label>
-                        <p class="text-red-500 text-[10px] mt-1 hidden" id="agree-error">Необходимо согласие</p>
-                    </div>
+                <div class="pt-2 relative">
+                    <label class="flex items-start gap-3 cursor-pointer">
+                        <input type="checkbox" id="modal-agree" name="agree" required
+                            class="mt-1 w-4 h-4 shrink-0 accent-brand-gold bg-transparent border-white/20 cursor-pointer"
+                            aria-describedby="agree-desc agree-error">
+                        <span id="agree-desc" class="text-sm text-gray-400 leading-snug block flex-1">
+                            Я согласен с <a href="/privacy.html" target="_blank" rel="noopener noreferrer"
+                                            class="text-brand-gold hover:text-brand-goldHover transition-colors">политикой конфиденциальности</a>
+                            и обработкой персональных данных
+                        </span>
+                    </label>
+                    <p class="text-red-500 text-xs mt-1 hidden ml-7" id="agree-error">Необходимо согласие</p>
                 </div>
                 
                 <button type="submit" class="w-full bg-brand-gold hover:bg-brand-goldHover text-brand-dark font-semibold tracking-widest uppercase py-4 text-xs transition-all duration-300 mt-4">
