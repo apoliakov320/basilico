@@ -25,7 +25,8 @@ window.openModal = function() {
         modalForm.reset();
         modalForm.classList.remove('hidden');
         
-        ['name-error', 'phone-error', 'agree-error', 'date-error', 'time-error'].forEach(id => document.getElementById(id)?.classList.add('hidden'));
+        // Убрали agree-error из списка
+        ['name-error', 'phone-error', 'date-error', 'time-error'].forEach(id => document.getElementById(id)?.classList.add('hidden'));
         
         ['modal-name', 'modal-phone', 'modal-date', 'modal-time'].forEach(id => {
             const el = document.getElementById(id);
@@ -77,18 +78,17 @@ async function handleFormSubmit(e) {
     const dateInput = document.getElementById('modal-date');
     const timeInput = document.getElementById('modal-time');
     const guestsInput = document.getElementById('modal-guests');
-    const agreeInput = document.getElementById('modal-agree');
     
     const nameError = document.getElementById('name-error');
     const phoneError = document.getElementById('phone-error');
     const dateError = document.getElementById('date-error');
     const timeError = document.getElementById('time-error');
-    const agreeError = document.getElementById('agree-error');
 
     if (!nameInput || !phoneInput) return;
 
     [nameInput, phoneInput, dateInput, timeInput].forEach(i => i.classList.remove('!border-red-500'));
-    ['name-error', 'phone-error', 'date-error', 'time-error', 'agree-error'].forEach(id => document.getElementById(id)?.classList.add('hidden'));
+    // Убрали agree-error из списка
+    ['name-error', 'phone-error', 'date-error', 'time-error'].forEach(id => document.getElementById(id)?.classList.add('hidden'));
 
     let valid = true;
 
@@ -154,11 +154,7 @@ async function handleFormSubmit(e) {
         valid = false;
     }
 
-    // 5. Проверка Чекбокса
-    if (agreeInput && !agreeInput.checked) {
-        if (agreeError) agreeError.classList.remove('hidden');
-        valid = false;
-    }
+    // ПРОВЕРКА ЧЕКБОКСА УДАЛЕНА
 
     if (!valid) return; 
 
